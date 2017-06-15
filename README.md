@@ -1,4 +1,4 @@
-# The Pomo d'Pro
+# The Pomo d'Oro
 
 A progressive web app for the [Pomodoro Technique] (https://cirillocompany.de/pages/pomodoro-technique), built with Vue 2, Vuex and Firebase.
 

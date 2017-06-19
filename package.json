@@ -22,7 +22,6 @@
     "vue-easy-toast": "^0.2.6",
     "vue-router": "^2.2.0",
     "vue-spinner": "^1.0.2",
-    "vue-toast": "^3.0.0",
     "vuex": "^2.2.1",
     "vuex-persistedstate": "^1.4.1"
   },

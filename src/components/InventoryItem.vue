@@ -129,6 +129,9 @@ export default {
     // We want to overrule hover reveal for small (likely touch) screens
     opacity 1 !important
     font-size 1.5rem
+  .edit-task
+    font-size 1.6rem
+    height 2.5rem
 
 @media (hover:hover)
   .remove-task

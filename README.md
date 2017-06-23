@@ -1,14 +1,16 @@
 # The Pomo d'Oro
 
+![Pomo d'Oro screencast](http://www.susukomaka.com/images/Pomo-d-oro-cast.gif)
+
 A progressive web app for the [Pomodoro Technique](https://cirillocompany.de/pages/pomodoro-technique), built with Vue 2, Vuex and Firebase.
 
-[Live demo](https://pomodoro-13b15.firebaseapp.com)
+[Live app](https://pomodoro-13b15.firebaseapp.com)
 
 ## Features
 - Google and Facebook authentication
 - Inventory and Today views
 - Github-style calendar heat map view for tracking productivity over time
-- Progressive Web App
+- Progressive Web App (100/100 Lighthouse score)
   - App manifest
   - Service worker
   - Use of local storage for limited offline functionality

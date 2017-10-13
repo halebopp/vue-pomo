@@ -1,34 +1,40 @@
 <template>
   <transition name="slide-right" mode="out-in">
     <div class="inventory">
-      <app-loader></app-loader>
-      <section v-if="!isTodayEmpty">
-        <!-- <transition name="fade"> -->
-          <info-box v-if="!isLoading && isOnline && !dismissedTodayHelp" ref="infob" message="Here are your tasks for today. Click the tomato icon to add completed pomodori." @dismissed="dismissInfo()"></info-box>
-        <!-- </transition> -->
+      <AppLoader/>
+      <section v-if="!isTodayEmpty" key="today-has-tasks">
+        <InfoBox 
+          v-if="!isLoading && isOnline && !dismissedTodayHelp" 
+          ref="infob" 
+          message="Here are your tasks for today. Click the tomato icon to add completed pomodori." 
+          @dismissed="dismissInfo()"
+        />
         <transition-group class="table-inventory" name="table-row" tag="ul">
-          <today-item v-for="(item, key) in items" :itemKey="key" :item="item" :key="key"></today-item>
+          <TodayItem 
+            v-for="(item, key) in items" 
+            :itemKey="key" 
+            :item="item" 
+            :key="key"
+          />
         </transition-group>
       </section>
-      <section v-else>
+      <section v-else key="today-empty-state">
         <div class="empty-state">
           <img src="../assets/img/today-empty.svg" alt="Empty calendar icon" />
           <p>You have no tasks on your list for today. Please add some by going to the Inventory tab and clicking the star next the tasks you want to tackle today.</p>
         </div>
       </section>
-
     </div>
   </transition>
 </template>
 
 <script>
-
-import Loader from './Loading'
-import TodayItem from './TodayItem'
+import AppLoader from './AppLoader'
+import TodayItem from './TodayPaneItem'
 import InfoBox from './InfoBox'
 
 export default {
-  name: 'today',
+  name: 'TodayPane',
   data() {
     return {
       showInfo: true
@@ -52,8 +58,8 @@ export default {
     }
   },
   components: {
-    appLoader: Loader,
-    todayItem: TodayItem,
+    AppLoader,
+    TodayItem,
     InfoBox
   },
   methods: {
@@ -68,7 +74,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-
 h1, h2
   font-weight normal
 

@@ -1,19 +1,29 @@
 <template>
   <transition name="slide-left" mode="out-in">
     <div class="inventory">
-      <app-loader></app-loader>
-      <section v-if="!isInventoryEmpty">
+      <AppLoader/>
+      <section v-if="!isInventoryEmpty" key="inventory-has-tasks">
         <transition name="fade">
-          <info-box v-if="!isLoading && isOnline && !dismissedInventoryHelp" ref="infob" message="Here are your outstanding tasks. Star those you want to tackle today." @dismissed="dismissInfo()"></info-box>
+          <InfoBox 
+            v-if="!isLoading && isOnline && !dismissedInventoryHelp" 
+            ref="infob" 
+            message="Here are your outstanding tasks. Star those you want to tackle today." 
+            @dismissed="dismissInfo()"
+          />
         </transition>
         <!-- <transition name="fade">
           <info-box v-if="!isLoading && !isOnline" message="Connect to the internet for more functionality." @dismissed="dismissInfo()"></info-box>
         </transition> -->
         <transition-group class="table-inventory" name="table-row" tag="ul">
-          <inventory-item v-for="(item, key) in items" :itemKey="key" :item="item" :key="key"></inventory-item>
+          <InventoryItem 
+            v-for="(item, key) in items" 
+            :itemKey="key" 
+            :item="item" 
+            :key="key"
+          />
         </transition-group>
       </section>
-      <section v-else>
+      <section v-else key="inventory-empty-state">
         <div class="empty-state">
           <img src="../assets/img/inventory-empty.svg" alt="Empty clipboard icon" />
           <p>You don't have any tasks yet. Use the field below to create some.</p>
@@ -40,12 +50,12 @@
 </template>
 
 <script>
-import Loader from './Loading'
-import InventoryItem from './InventoryItem'
+import AppLoader from './AppLoader'
+import InventoryItem from './InventoryPaneItem'
 import InfoBox from './InfoBox'
 
 export default {
-  name: 'inventory',
+  name: 'InventoryPane',
   data() {
     return {
       newItem: '',
@@ -70,8 +80,8 @@ export default {
     }
   },
   components: {
-    appLoader: Loader,
-    inventoryItem: InventoryItem,
+    AppLoader,
+    InventoryItem,
     InfoBox
   },
   methods: {
@@ -120,7 +130,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
 h1, h2
   font-weight normal
 

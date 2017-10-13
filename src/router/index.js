@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Inventory from '../components/Inventory'
-import Today from '../components/Today'
-import heatMap from '../components/Map'
+import InventoryPane from '../components/InventoryPane'
+import TodayPane from '../components/TodayPane'
+import AppMap from '../components/TheMap'
 
 Vue.use(Router)
 
@@ -12,19 +12,19 @@ export default new Router({
     {
       path: '/',
       name: 'Today',
-      component: Today
+      component: TodayPane
       // meta: { requiresAuth: true },
     },
     {
       path: '/inventory',
       name: 'Inventory',
-      component: Inventory
+      component: InventoryPane
       // meta: { requiresAuth: true }
     },
     {
       path: '/map',
-      name: 'HeatMap',
-      component: heatMap
+      name: 'Map',
+      component: AppMap
     }
   ]
 })

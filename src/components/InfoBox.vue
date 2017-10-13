@@ -7,8 +7,13 @@
 
 <script>
 export default {
-  name: 'infobox',
-  props: ['message'],
+  name: 'InfoBox',
+  props: {
+    message: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     dismiss() {
       this.$emit('dismissed')
@@ -18,7 +23,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
   .explication
     position relative
     padding 1rem 3.8rem 1rem 1rem

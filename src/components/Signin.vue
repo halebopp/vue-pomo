@@ -7,7 +7,12 @@
       <div id="fButton" :class="{ disabled: !isOnline }" @click="signInWithFacebook"></div>
       <div class="issue" role="alert" v-if="!isOnline">You cannot sign in because you are not connected to the internet.</div>
     </div>
-    <beat-loader :loading="authInProgress" color="#A6AB9B" size="20px" style="margin: 6rem auto 2rem;"></beat-loader>
+    <BeatLoader 
+      :loading="authInProgress" 
+      color="#A6AB9B" 
+      size="20px" 
+      style="margin: 6rem auto 2rem;"
+    />
     <div class="footer"><p>@2017 Susuko Maka LLC. Tomato icon by Freepik at <a href="http://www.flaticon.com/free-icon/tomato_167283">www.flaticon.com</a>.</p></div>
   </div>
 </template>
@@ -16,7 +21,7 @@
 import BeatLoader from 'vue-spinner/src/BeatLoader'
 
 export default {
-  name: 'signin',
+  name: 'SignIn',
   data() {
     return {
       authInProgress: false,
@@ -29,7 +34,7 @@ export default {
     }
   },
   components: {
-    beatLoader: BeatLoader
+    BeatLoader
   },
   methods: {
     signInWithGoogle() {
@@ -53,8 +58,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-
+<style lang="stylus" scoped>
 .signup-wrapper
   position fixed
   top 0
@@ -66,11 +70,9 @@ export default {
   background-color #3d3d3d
   z-index 100
 
-
 @media (max-width:350px)
   .signup-wrapper
     padding-top 3vh
-
 
 .signup-logo
   height 6rem

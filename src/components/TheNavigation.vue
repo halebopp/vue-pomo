@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'TheNavigation',
   computed: {
     numberOfTasksLeftToday() {
       return this.$store.getters.numberOfTasksLeftToday
@@ -20,7 +21,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .nav-pills
   display flex
   justify-content center

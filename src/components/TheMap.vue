@@ -7,7 +7,7 @@
 import CalHeatMap from 'cal-heatmap'
 
 export default {
-  name: 'heatMap',
+  name: 'TheMap',
   mounted() {
     const cal = new CalHeatMap()
     cal.init({

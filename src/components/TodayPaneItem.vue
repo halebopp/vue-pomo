@@ -1,26 +1,39 @@
 <template lang="html">
   <li class="task-row">
-    <span class="cell is-done"><span v-if="isOnline" @click="toggleDone(itemKey, $event)" class="glyphicon done-sign" :class="checkIfDone(item)" aria-hidden="true"></span></span>
-    <span class="cell task-cell"><span :class="checkShouldStrikeOut(item)">{{ item.title }}</span></span>
+    <span class="cell is-done">
+      <span v-if="isOnline" @click="toggleDone(itemKey, $event)" class="glyphicon done-sign" :class="checkIfDone(item)" aria-hidden="true"></span>
+    </span>
+    <span class="cell task-cell">
+      <span :class="checkShouldStrikeOut(item)">{{ item.title }}</span>
+    </span>
     <span style="text-align: right; white-space:nowrap;" class="cell pomodori">
       <span class="hidden-xs" :class="checkShouldStrikeOut(item)">
-          <span v-for="n in Math.min(item.pomodori, 3)" :key="n">
-            <img src="../assets/img/tomato.svg" class="tomate" alt=""/>
-          </span><span v-if="item.pomodori > 3" class="badge" key="thebadge">+{{item.pomodori-3}}</span>
-
+        <span v-for="n in Math.min(item.pomodori, 3)" :key="n">
+          <img src="../assets/img/tomato.svg" class="tomate" alt=""/>
+        </span>
+        <span v-if="item.pomodori > 3" class="badge" key="thebadge">+{{item.pomodori-3}}</span>
       </span>
       <span class="visible-xs" :class="checkShouldStrikeOut(item)" v-if="item.pomodori>0">
         <span class="badge">{{item.pomodori}}</span>
       </span>
     </span>
-    <span style="text-align: right;" class="cell"><img v-if="item.status!=='done' && isOnline" @click="addPomodoro(itemKey)" src="../assets/img/tomatoadd3.png" class="pomodoro-icon"/></span>
+    <span style="text-align: right;" class="cell">
+      <img v-if="item.status!=='done' && isOnline" @click="addPomodoro(itemKey)" src="../assets/img/tomatoadd3.png" class="pomodoro-icon"/>
+    </span>
   </li>
 </template>
 
 <script>
 export default {
-  name: 'today-item',
-  props: ['item', 'itemKey'],
+  name: 'TodayPaneItem',
+  props: {
+    item: {
+      type: Object
+    },
+    itemKey: {
+      type: String
+    }
+  },
   computed: {
     isOnline() {
       return this.$store.getters.getOnlineStatus
@@ -46,7 +59,10 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.task-row
+  display table-row
+  overflow hidden
 
 .cell
   vertical-align middle
@@ -59,8 +75,19 @@ export default {
   &.task-cell
     text-align left
 
-.task-row
-  display table-row
+.task-cell
+  text-align left
+  width 70%
+  position relative
+
+.tomate
+  width 2rem
+  margin-right 1rem
+
+.pomodoro-icon
+  width 2.5rem
+  opacity 0.3
+  cursor pointer
 
 .done-sign
   font-size 2.3rem
@@ -79,36 +106,6 @@ export default {
   opacity 0.4
   filter grayscale(1)
 
-.empty-state
-  p
-    display block
-    width 80%
-    margin 0 auto
-    color rgb(115, 115, 115)
-    font-weight bold
-  img
-    height 5rem
-    margin 2rem 0 2rem
-    opacity 0.5
-
-.pomodoro-icon
-  width 2.5rem
-  opacity 0.3
-  cursor pointer
-
-.tomate
-  width 2rem
-  margin-right 1rem
-
-@media (hover:hover)
-  .done-sign
-    &:hover
-      color rgb(107, 107, 107)
-
-  .pomodoro-icon
-    &:hover
-      opacity 1
-
 @media (max-width:767px)
   .pomodoro-icon, .pomodoro-icon:hover
     opacity 0.9
@@ -123,5 +120,14 @@ export default {
 
   .done-sign
     font-size 2.1rem
+  
+@media (hover:hover)
+  .done-sign
+    &:hover
+      color rgb(107, 107, 107)
+
+  .pomodoro-icon
+    &:hover
+      opacity 1
 
 </style>

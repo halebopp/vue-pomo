@@ -1,16 +1,31 @@
 <template lang="html">
   <li class="task-row" @mouseover="showTrash = { opacity: 1 }" @mouseleave="showTrash = { opacity: 0 }">
-    <span class="cell select-today"><span @click="toggleToday(itemKey, $event)" class="glyphicon glyphicon-star today-star" v-if="isOnline" :class="starIfToday(item)" aria-hidden="true"></span></span>
-    <span class="cell task-cell"><span v-if="!inEditMode" @click="toggleEdit()">{{ item.title }}</span><span v-else><input
-      class="form-control edit-task"
-      ref="editor"
-      :value="item.title"
-      @keyup.enter="editTask()"
-      @keyup.esc="toggleEdit()"
-      @keydown="removeError()"/>
-    <span v-show="hasErrors" class="text-danger pull-right inline-error">This is required</span></span></span>
-    <span class="cell" style="text-align: right; white-space: nowrap;"><img src="../assets/img/tomato.svg" alt="Pomodori" class="tomate hidden-xs" v-if="item.pomodori > 0"><span class="badge" v-if="item.pomodori > 0">{{ item.pomodori }}</span></span>
-    <span class="cell" style="text-align: right;"><transition name="fade"><span :style="showTrash" v-if="isOnline" @click="removeItem(itemKey)" class="glyphicon glyphicon-trash remove-task"></span></transition></span>
+    <span class="cell select-today">
+      <span @click="toggleToday(itemKey, $event)" class="glyphicon glyphicon-star today-star" v-if="isOnline" :class="starIfToday(item)" aria-hidden="true"></span>
+    </span>
+    <span class="cell task-cell">
+      <span v-if="!inEditMode" @click="toggleEdit()" key="task-normal-mode">{{ item.title }}</span>
+      <span v-else key="task-edit-mode">
+        <input
+          class="form-control edit-task"
+          ref="editor"
+          :value="item.title"
+          @keyup.enter="editTask()"
+          @keyup.esc="toggleEdit()"
+          @keydown="removeError()"
+        />
+        <span v-show="hasErrors" class="text-danger pull-right inline-error">This is required</span>
+      </span>
+    </span>
+    <span class="cell" style="text-align: right; white-space: nowrap;">
+      <img src="../assets/img/tomato.svg" alt="Pomodori" class="tomate hidden-xs" v-if="item.pomodori > 0">
+      <span class="badge" v-if="item.pomodori > 0">{{ item.pomodori }}</span>
+    </span>
+    <span class="cell" style="text-align: right;">
+      <transition name="fade">
+        <span :style="showTrash" v-if="isOnline" @click="removeItem(itemKey)" class="glyphicon glyphicon-trash remove-task"></span>
+      </transition>
+    </span>
   </li>
 </template>
 
@@ -20,7 +35,15 @@ import moment from 'moment'
 const today = moment().format('YYYY-MM-DD')
 
 export default {
-  name: 'inventory-item',
+  name: 'InventoryPaneItem',
+  props: {
+    item: {
+      type: Object
+    },
+    itemKey: {
+      type: String
+    }
+  },
   data() {
     return {
       inEditMode: false,
@@ -28,7 +51,6 @@ export default {
       showTrash: { opacity: 0 }
     }
   },
-  props: ['item', 'itemKey'],
   computed: {
     isOnline() {
       return this.$store.getters.getOnlineStatus
@@ -66,8 +88,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-
+<style lang="stylus" scoped>
 .task-row
   display table-row
   overflow hidden
@@ -77,11 +98,16 @@ export default {
   display table-cell
   border-bottom 1px solid rgb(225, 225, 225)
   padding 1rem 0.8rem
+  height 5.5rem !important
 
 .task-cell
   text-align left
   width 70%
   position relative
+
+.tomate
+  width 2rem
+  margin-right 1rem
 
 .select-today
   width 10%
@@ -101,9 +127,6 @@ export default {
   cursor pointer
   font-size 1.6rem
   transition all .8s
-
-.tomate
-  width 2rem
 
 .edit-task
   border none
@@ -125,10 +148,15 @@ export default {
   right 10px
 
 @media (max-width:767px)
+  .cell
+    font-size 1.6rem
+    height 3.5rem !important
+
   .remove-task
     // We want to overrule hover reveal for small (likely touch) screens
     opacity 1 !important
     font-size 1.5rem
+
   .edit-task
     font-size 1.6rem
     height 2.5rem

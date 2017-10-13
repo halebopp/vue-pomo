@@ -1,8 +1,11 @@
 <template>
   <div id="app" class="container">
-    <app-header v-if="hasCurrentUser" @showMap="showMap=true"></app-header>
-    <offline-notice v-if="!isOnline && hasCurrentUser"></offline-notice>
-    <app-navigation v-if="hasCurrentUser"></app-navigation>
+    <AppHeader 
+      v-if="hasCurrentUser" 
+      @showMap="showMap=true" 
+    />
+    <OfflineNotice v-if="!isOnline && hasCurrentUser"/>
+    <AppNavigation v-if="hasCurrentUser"/>
     <div class="row">
       <transition v-if="showMap" name="modal">
         <div class="modal-mask">
@@ -13,7 +16,7 @@
                 <p>This chart maps the number of pomodori completed daily, over the last 3 months. <span class="hidden-xs">Hover over a day to see the exact number of pomodori completed.</span></p>
               </div>
               <div class="modal-body">
-                <app-map></app-map>
+                <AppMap/>
               </div>
               <div class="modal-footer">
                 <button class="modal-default-button" @click="showMap=false">
@@ -25,8 +28,12 @@
         </div>
       </transition>
       <div class="col-xs-12">
-        <app-signin v-if="!hasCurrentUser" @signInWithGoogle="signInWithGoogle" @signInWithFacebook="signInWithFacebook"></app-signin>
-        <router-view v-if="hasCurrentUser"></router-view>
+        <AppSignin 
+          v-if="!hasCurrentUser" 
+          @signInWithGoogle="signInWithGoogle" 
+          @signInWithFacebook="signInWithFacebook" 
+        />
+        <router-view v-if="hasCurrentUser"/>
       </div>
     </div>
   </div>
@@ -35,16 +42,16 @@
 <script>
 import firebase from 'firebase'
 import Fastclick from 'fastclick'
-import Header from './components/Header'
-import Navigation from './components/Navigation'
-import Signin from './components/Signin'
-import heatMap from './components/Map'
-import offlineNotice from './components/OfflineNotice'
+import AppHeader from './components/TheHeader'
+import AppNavigation from './components/TheNavigation'
+import AppSignin from './components/SignIn'
+import AppMap from './components/TheMap'
+import OfflineNotice from './components/OfflineNotice'
 import fbApp from './modules/firebase'
 
 
 export default {
-  name: 'app',
+  name: 'App',
   /* eslint-disable */
   beforeCreate() {
     window.addEventListener('offline', () => {
@@ -85,11 +92,11 @@ export default {
     }
   },
   components: {
-    appNavigation: Navigation,
-    appHeader: Header,
-    appSignin: Signin,
-    appMap: heatMap,
-    offlineNotice
+    AppNavigation,
+    AppHeader,
+    AppSignin,
+    AppMap,
+    OfflineNotice
   },
   methods: {
     signInWithGoogle() {
@@ -106,12 +113,10 @@ export default {
     this.$store.commit('SET_ONLINE_STATUS', navigator.onLine)
   }
 }
-
 </script>
 
 <style lang="stylus">
 #app
-    /*font-family 'Avenir', Helvetica, Arial, sans-serif*/
     font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale

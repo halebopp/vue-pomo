@@ -8,14 +8,14 @@
         </router-link>
         <ul v-if="hasCurrentUser" class="pull-right visible-xs" style="padding-right:1.5rem; padding-top:1.4rem;">
           <span class="greeting">{{ currentUser.displayName.split(' ')[0] }}</span>
-          <img :src="currentUser.photoURL" :alt="currentUser.displayName" class="img-circle circle-thumb"/>
+          <img :src="currentUser.providerData[0].photoURL" :alt="currentUser.displayName" class="img-circle circle-thumb"/>
           <span class="glyphicon glyphicon-log-out icon-button" @click="signOut"></span>
         </ul>
       </div>
       <div class="collapse navbar-collapse" id="account-manage" v-if="hasCurrentUser">
         <ul class="nav navbar-nav navbar-right" style="padding-right:3rem; padding-top:1.4rem;">
           <span>{{ currentUser.displayName.split(' ')[0] }}</span>
-          <img :src="currentUser.photoURL" :alt="currentUser.displayName" class="img-circle circle-thumb"/>
+          <img :src="currentUser.providerData[0].photoURL" :alt="currentUser.displayName" class="img-circle circle-thumb"/>
           <span class="glyphicon glyphicon-calendar icon-button" @click="showMap"></span>
           <span class="glyphicon glyphicon-log-out icon-button" @click="signOut"></span>
         </ul>

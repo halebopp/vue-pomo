@@ -12,7 +12,7 @@ module.exports = {
       .url(devServer)
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('#gButton')
-      .assert.containsText('p', 'you need to sign in')
+      .assert.containsText('p#sign-in-prompt', 'you need to sign in')
       .end()
-  },
+  }
 }

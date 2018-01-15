@@ -2,7 +2,7 @@
   <div class="signup-wrapper">
     <div class="container text-center" id="signInPrompt">
       <p class="text-center"><img src="../assets/img/tomato.svg" alt="Pomodoro" class="signup-logo"></p>
-      <p>With Pomo d'Oro, you can track your daily productivity and enforce good work habits, by effectively using the Pomodoro Technique. To begin, you need to sign in with your <span v-if="!isStandaloneiOS">Google or </span>Facebook account.</p>
+      <p id="sign-in-prompt">With Pomo d'Oro, you can track your daily productivity and enforce good work habits, by effectively using the Pomodoro Technique. To begin, you need to sign in with your <span v-if="!isStandaloneiOS">Google or </span>Facebook account.</p>
       <div id="gButton" :class="{ disabled: !isOnline }" v-if="!isStandaloneiOS" @click="signInWithGoogle"></div>
       <div id="fButton" :class="{ disabled: !isOnline }" @click="signInWithFacebook"></div>
       <div class="issue" role="alert" v-if="!isOnline">You cannot sign in because you are not connected to the internet.</div>

@@ -7,7 +7,8 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    browser: true
+    browser: true,
+    jest: true
   },
   extends: 'airbnb-base',
   // required to lint *.vue files

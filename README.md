@@ -14,6 +14,8 @@ A progressive web app for the [Pomodoro Technique](https://cirillocompany.de/pag
   - App manifest
   - Service worker
   - Use of local storage for limited offline functionality
+- Follows the Vue.js [Style Guide](https://vuejs.org/v2/style-guide/)
+- Tests with vue-test-utils and Jest
 
 ## Todos
 - Add unit tests for vuex mutations and actions
@@ -36,14 +38,11 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
+# run tests
 npm test
+
+# run tests in watch mode
+npm run watch
 ```
 
 ## License
